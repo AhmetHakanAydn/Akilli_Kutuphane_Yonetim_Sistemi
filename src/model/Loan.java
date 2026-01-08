@@ -126,10 +126,10 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan [ID: " + id + ", Student ID: " + studentId + ", Book ID: " + bookId +
-               ", Loan Date: " + loanDate + ", Return Date: " + returnDate +
-               ", Actual Return: " + (actualReturnDate != null ? actualReturnDate : "Not returned") +
-               ", Penalty: " + penaltyAmount + " TL]";
+        return "Ödünç [ID: " + id + ", Öğrenci ID: " + studentId + ", Kitap ID: " + bookId +
+               ", Ödünç Tarihi: " + loanDate + ", İade Tarihi: " + returnDate +
+               ", Gerçek İade: " + (actualReturnDate != null ? actualReturnDate : "İade edilmedi") +
+               ", Ceza: " + penaltyAmount + " TL]";
     }
 
     @Override
