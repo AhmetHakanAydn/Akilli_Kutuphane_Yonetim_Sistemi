@@ -57,7 +57,7 @@ public abstract class Person {
     // Polymorphism - method overriding
     @Override
     public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Email: " + email;
+        return "ID: " + id + ", Ad: " + name + ", E-posta: " + email;
     }
 
     // Polymorphism - method overriding

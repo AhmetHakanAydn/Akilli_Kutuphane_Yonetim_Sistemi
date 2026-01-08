@@ -23,6 +23,6 @@ public class LibraryException extends Exception {
 
     // Constructor overloading - default constructor
     public LibraryException() {
-        super("An error occurred in the library system");
+        super("Kütüphane sisteminde bir hata oluştu");
     }
 }

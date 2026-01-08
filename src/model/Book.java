@@ -77,8 +77,8 @@ public class Book {
     // Method overriding - polymorphism
     @Override
     public String toString() {
-        return "Book [ID: " + id + ", Title: " + title + ", Author: " + author + 
-               ", Category: " + category + ", Available: " + (isAvailable ? "Yes" : "No") + "]";
+        return "Kitap [ID: " + id + ", Başlık: " + title + ", Yazar: " + author + 
+               ", Kategori: " + category + ", Müsait: " + (isAvailable ? "Evet" : "Hayır") + "]";
     }
 
     @Override

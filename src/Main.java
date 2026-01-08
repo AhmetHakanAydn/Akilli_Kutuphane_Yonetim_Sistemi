@@ -22,8 +22,8 @@ public class Main {
         try {
             // Initialize database and library manager
             System.out.println("===========================================");
+            System.out.println("   AKILLI KÜTÜPHANE YÖNETİM SİSTEMİ");
             System.out.println("   SMART LIBRARY MANAGEMENT SYSTEM");
-            System.out.println("   Akıllı Kütüphane Yönetim Sistemi");
             System.out.println("===========================================\n");
 
             databaseManager = new DatabaseManager();
@@ -34,7 +34,7 @@ public class Main {
             while (running) {
                 try {
                     displayMainMenu();
-                    int choice = getIntInput("Enter your choice: ");
+                    int choice = getIntInput("Seçiminiz: ");
 
                     switch (choice) {
                         case 1:
@@ -48,21 +48,21 @@ public class Main {
                             break;
                         case 4:
                             running = false;
-                            System.out.println("\nThank you for using the Library Management System!");
-                            System.out.println("Goodbye!");
+                            System.out.println("\nKütüphane Yönetim Sistemini kullandığınız için teşekkür ederiz!");
+                            System.out.println("Hoşça kalın!");
                             break;
                         default:
-                            System.out.println("Invalid choice. Please try again.");
+                            System.out.println("Geçersiz seçim. Lütfen tekrar deneyin.");
                     }
                 } catch (LibraryException e) {
-                    System.err.println("Error: " + e.getMessage());
+                    System.err.println("Hata: " + e.getMessage());
                 } catch (Exception e) {
-                    System.err.println("Unexpected error: " + e.getMessage());
+                    System.err.println("Beklenmeyen hata: " + e.getMessage());
                 }
             }
 
         } catch (LibraryException e) {
-            System.err.println("Failed to initialize system: " + e.getMessage());
+            System.err.println("Sistem başlatılamadı: " + e.getMessage());
         } finally {
             // Clean up resources
             if (databaseManager != null) {
@@ -78,11 +78,11 @@ public class Main {
      * Display main menu
      */
     private static void displayMainMenu() {
-        System.out.println("\n========== MAIN MENU ==========");
-        System.out.println("1. Book Operations");
-        System.out.println("2. Student Operations");
-        System.out.println("3. Loan Operations");
-        System.out.println("4. Exit");
+        System.out.println("\n========== ANA MENÜ ==========");
+        System.out.println("1. Kitap İşlemleri");
+        System.out.println("2. Öğrenci İşlemleri");
+        System.out.println("3. Ödünç Alma İşlemleri");
+        System.out.println("4. Çıkış");
         System.out.println("================================");
     }
 
@@ -92,16 +92,16 @@ public class Main {
     private static void bookOperationsMenu() throws LibraryException {
         boolean back = false;
         while (!back) {
-            System.out.println("\n========== BOOK OPERATIONS ==========");
-            System.out.println("1. Add Book");
-            System.out.println("2. List All Books");
-            System.out.println("3. Search Books");
-            System.out.println("4. Update Book");
-            System.out.println("5. Delete Book");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("\n========== KİTAP İŞLEMLERİ ==========");
+            System.out.println("1. Kitap Ekle");
+            System.out.println("2. Tüm Kitapları Listele");
+            System.out.println("3. Kitap Ara");
+            System.out.println("4. Kitap Güncelle");
+            System.out.println("5. Kitap Sil");
+            System.out.println("6. Ana Menüye Dön");
             System.out.println("======================================");
 
-            int choice = getIntInput("Enter your choice: ");
+            int choice = getIntInput("Seçiminiz: ");
 
             switch (choice) {
                 case 1:
@@ -123,7 +123,7 @@ public class Main {
                     back = true;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Geçersiz seçim. Lütfen tekrar deneyin.");
             }
         }
     }
@@ -132,15 +132,15 @@ public class Main {
      * Add a new book
      */
     private static void addBook() throws LibraryException {
-        System.out.println("\n--- Add New Book ---");
+        System.out.println("\n--- Yeni Kitap Ekle ---");
         
-        System.out.print("Enter book title: ");
+        System.out.print("Kitap başlığını girin: ");
         String title = scanner.nextLine();
         
-        System.out.print("Enter author name: ");
+        System.out.print("Yazar adını girin: ");
         String author = scanner.nextLine();
         
-        System.out.print("Enter category: ");
+        System.out.print("Kategori girin: ");
         String category = scanner.nextLine();
 
         Book book = new Book(title, author, category);
@@ -151,14 +151,14 @@ public class Main {
      * Search books menu
      */
     private static void searchBooks() {
-        System.out.println("\n--- Search Books ---");
-        System.out.println("1. Search by Title");
-        System.out.println("2. Search by Author");
-        System.out.println("3. Search by Category");
+        System.out.println("\n--- Kitap Ara ---");
+        System.out.println("1. Başlığa Göre Ara");
+        System.out.println("2. Yazara Göre Ara");
+        System.out.println("3. Kategoriye Göre Ara");
         
-        int choice = getIntInput("Enter search type: ");
+        int choice = getIntInput("Arama türü: ");
 
-        System.out.print("Enter search term: ");
+        System.out.print("Arama terimini girin: ");
         String searchTerm = scanner.nextLine();
 
         List<Book> results;
@@ -167,18 +167,18 @@ public class Main {
         switch (choice) {
             case 1:
                 results = libraryManager.searchByTitle(searchTerm);
-                searchType = "Title: " + searchTerm;
+                searchType = "Başlık: " + searchTerm;
                 break;
             case 2:
                 results = libraryManager.searchByAuthor(searchTerm);
-                searchType = "Author: " + searchTerm;
+                searchType = "Yazar: " + searchTerm;
                 break;
             case 3:
                 results = libraryManager.searchByCategory(searchTerm);
-                searchType = "Category: " + searchTerm;
+                searchType = "Kategori: " + searchTerm;
                 break;
             default:
-                System.out.println("Invalid search type.");
+                System.out.println("Geçersiz arama türü.");
                 return;
         }
 
@@ -189,33 +189,33 @@ public class Main {
      * Update book information
      */
     private static void updateBook() throws LibraryException {
-        System.out.println("\n--- Update Book ---");
+        System.out.println("\n--- Kitap Güncelle ---");
         libraryManager.listAllBooks();
         
-        int bookId = getIntInput("Enter book ID to update: ");
+        int bookId = getIntInput("Güncellenecek kitap ID'sini girin: ");
         Book book = libraryManager.getBookById(bookId);
         
         if (book == null) {
-            System.out.println("Book not found.");
+            System.out.println("Kitap bulunamadı.");
             return;
         }
 
-        System.out.println("Current book info: " + book);
-        System.out.println("Leave blank to keep current value.");
+        System.out.println("Mevcut kitap bilgisi: " + book);
+        System.out.println("Mevcut değeri korumak için boş bırakın.");
 
-        System.out.print("Enter new title [" + book.getTitle() + "]: ");
+        System.out.print("Yeni başlık [" + book.getTitle() + "]: ");
         String title = scanner.nextLine();
         if (!title.trim().isEmpty()) {
             book.setTitle(title);
         }
 
-        System.out.print("Enter new author [" + book.getAuthor() + "]: ");
+        System.out.print("Yeni yazar [" + book.getAuthor() + "]: ");
         String author = scanner.nextLine();
         if (!author.trim().isEmpty()) {
             book.setAuthor(author);
         }
 
-        System.out.print("Enter new category [" + book.getCategory() + "]: ");
+        System.out.print("Yeni kategori [" + book.getCategory() + "]: ");
         String category = scanner.nextLine();
         if (!category.trim().isEmpty()) {
             book.setCategory(category);
@@ -228,18 +228,18 @@ public class Main {
      * Delete a book
      */
     private static void deleteBook() throws LibraryException {
-        System.out.println("\n--- Delete Book ---");
+        System.out.println("\n--- Kitap Sil ---");
         libraryManager.listAllBooks();
         
-        int bookId = getIntInput("Enter book ID to delete: ");
+        int bookId = getIntInput("Silinecek kitap ID'sini girin: ");
         
-        System.out.print("Are you sure you want to delete this book? (yes/no): ");
+        System.out.print("Bu kitabı silmek istediğinizden emin misiniz? (evet/hayır): ");
         String confirmation = scanner.nextLine();
         
-        if (confirmation.equalsIgnoreCase("yes")) {
+        if (confirmation.equalsIgnoreCase("evet")) {
             libraryManager.deleteBook(bookId);
         } else {
-            System.out.println("Deletion cancelled.");
+            System.out.println("Silme işlemi iptal edildi.");
         }
     }
 
@@ -249,15 +249,15 @@ public class Main {
     private static void studentOperationsMenu() throws LibraryException {
         boolean back = false;
         while (!back) {
-            System.out.println("\n========== STUDENT OPERATIONS ==========");
-            System.out.println("1. Add Student");
-            System.out.println("2. List All Students");
-            System.out.println("3. Update Student");
-            System.out.println("4. Delete Student");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("\n========== ÖĞRENCİ İŞLEMLERİ ==========");
+            System.out.println("1. Öğrenci Ekle");
+            System.out.println("2. Tüm Öğrencileri Listele");
+            System.out.println("3. Öğrenci Güncelle");
+            System.out.println("4. Öğrenci Sil");
+            System.out.println("5. Ana Menüye Dön");
             System.out.println("=========================================");
 
-            int choice = getIntInput("Enter your choice: ");
+            int choice = getIntInput("Seçiminiz: ");
 
             switch (choice) {
                 case 1:
@@ -276,7 +276,7 @@ public class Main {
                     back = true;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Geçersiz seçim. Lütfen tekrar deneyin.");
             }
         }
     }
@@ -285,15 +285,15 @@ public class Main {
      * Add a new student
      */
     private static void addStudent() throws LibraryException {
-        System.out.println("\n--- Add New Student ---");
+        System.out.println("\n--- Yeni Öğrenci Ekle ---");
         
-        System.out.print("Enter student name: ");
+        System.out.print("Öğrenci adını girin: ");
         String name = scanner.nextLine();
         
-        System.out.print("Enter student number: ");
+        System.out.print("Öğrenci numarasını girin: ");
         String studentNo = scanner.nextLine();
         
-        System.out.print("Enter email: ");
+        System.out.print("E-posta adresini girin: ");
         String email = scanner.nextLine();
 
         Student student = new Student(name, email, studentNo);
@@ -304,33 +304,33 @@ public class Main {
      * Update student information
      */
     private static void updateStudent() throws LibraryException {
-        System.out.println("\n--- Update Student ---");
+        System.out.println("\n--- Öğrenci Güncelle ---");
         libraryManager.listAllStudents();
         
-        int studentId = getIntInput("Enter student ID to update: ");
+        int studentId = getIntInput("Güncellenecek öğrenci ID'sini girin: ");
         Student student = libraryManager.getStudentById(studentId);
         
         if (student == null) {
-            System.out.println("Student not found.");
+            System.out.println("Öğrenci bulunamadı.");
             return;
         }
 
-        System.out.println("Current student info: " + student);
-        System.out.println("Leave blank to keep current value.");
+        System.out.println("Mevcut öğrenci bilgisi: " + student);
+        System.out.println("Mevcut değeri korumak için boş bırakın.");
 
-        System.out.print("Enter new name [" + student.getName() + "]: ");
+        System.out.print("Yeni ad [" + student.getName() + "]: ");
         String name = scanner.nextLine();
         if (!name.trim().isEmpty()) {
             student.setName(name);
         }
 
-        System.out.print("Enter new student number [" + student.getStudentNo() + "]: ");
+        System.out.print("Yeni öğrenci numarası [" + student.getStudentNo() + "]: ");
         String studentNo = scanner.nextLine();
         if (!studentNo.trim().isEmpty()) {
             student.setStudentNo(studentNo);
         }
 
-        System.out.print("Enter new email [" + student.getEmail() + "]: ");
+        System.out.print("Yeni e-posta [" + student.getEmail() + "]: ");
         String email = scanner.nextLine();
         if (!email.trim().isEmpty()) {
             student.setEmail(email);
@@ -343,18 +343,18 @@ public class Main {
      * Delete a student
      */
     private static void deleteStudent() throws LibraryException {
-        System.out.println("\n--- Delete Student ---");
+        System.out.println("\n--- Öğrenci Sil ---");
         libraryManager.listAllStudents();
         
-        int studentId = getIntInput("Enter student ID to delete: ");
+        int studentId = getIntInput("Silinecek öğrenci ID'sini girin: ");
         
-        System.out.print("Are you sure you want to delete this student? (yes/no): ");
+        System.out.print("Bu öğrenciyi silmek istediğinizden emin misiniz? (evet/hayır): ");
         String confirmation = scanner.nextLine();
         
-        if (confirmation.equalsIgnoreCase("yes")) {
+        if (confirmation.equalsIgnoreCase("evet")) {
             libraryManager.deleteStudent(studentId);
         } else {
-            System.out.println("Deletion cancelled.");
+            System.out.println("Silme işlemi iptal edildi.");
         }
     }
 
@@ -364,15 +364,15 @@ public class Main {
     private static void loanOperationsMenu() throws LibraryException {
         boolean back = false;
         while (!back) {
-            System.out.println("\n========== LOAN OPERATIONS ==========");
-            System.out.println("1. Borrow Book");
-            System.out.println("2. Return Book");
-            System.out.println("3. List Active Loans");
-            System.out.println("4. List Overdue Loans");
-            System.out.println("5. Back to Main Menu");
-            System.out.println("======================================");
+            System.out.println("\n========== ÖDÜNÇ ALMA İŞLEMLERİ ==========");
+            System.out.println("1. Kitap Ödünç Al");
+            System.out.println("2. Kitap İade Et");
+            System.out.println("3. Aktif Ödünç Listesi");
+            System.out.println("4. Geciken Ödünçler");
+            System.out.println("5. Ana Menüye Dön");
+            System.out.println("==========================================");
 
-            int choice = getIntInput("Enter your choice: ");
+            int choice = getIntInput("Seçiminiz: ");
 
             switch (choice) {
                 case 1:
@@ -391,7 +391,7 @@ public class Main {
                     back = true;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Geçersiz seçim. Lütfen tekrar deneyin.");
             }
         }
     }
@@ -400,19 +400,19 @@ public class Main {
      * Borrow a book
      */
     private static void borrowBook() throws LibraryException {
-        System.out.println("\n--- Borrow Book ---");
+        System.out.println("\n--- Kitap Ödünç Al ---");
         
         libraryManager.listAllStudents();
-        int studentId = getIntInput("Enter student ID: ");
+        int studentId = getIntInput("Öğrenci ID'sini girin: ");
         
         // Show only available books
-        System.out.println("\nAvailable books:");
+        System.out.println("\nMüsait kitaplar:");
         List<Book> availableBooks = libraryManager.getAllBooks().stream()
                 .filter(Book::isAvailable)
                 .collect(java.util.stream.Collectors.toList());
         
         if (availableBooks.isEmpty()) {
-            System.out.println("No available books.");
+            System.out.println("Müsait kitap yok.");
             return;
         }
         
@@ -420,8 +420,8 @@ public class Main {
             System.out.println(book);
         }
         
-        int bookId = getIntInput("Enter book ID: ");
-        int loanDays = getIntInput("Enter loan duration (days): ");
+        int bookId = getIntInput("Kitap ID'sini girin: ");
+        int loanDays = getIntInput("Ödünç alma süresi (gün): ");
         
         libraryManager.borrowBook(studentId, bookId, loanDays);
     }
@@ -430,10 +430,10 @@ public class Main {
      * Return a book
      */
     private static void returnBook() throws LibraryException {
-        System.out.println("\n--- Return Book ---");
+        System.out.println("\n--- Kitap İade Et ---");
         libraryManager.listActiveLoans();
         
-        int loanId = getIntInput("Enter loan ID to return: ");
+        int loanId = getIntInput("İade edilecek ödünç ID'sini girin: ");
         libraryManager.returnBook(loanId);
     }
 
@@ -447,7 +447,7 @@ public class Main {
                 String input = scanner.nextLine();
                 return Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Geçersiz giriş. Lütfen bir sayı girin.");
             }
         }
     }

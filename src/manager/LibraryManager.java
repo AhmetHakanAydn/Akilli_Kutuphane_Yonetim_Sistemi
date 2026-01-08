@@ -49,7 +49,7 @@ public class LibraryManager implements Searchable {
     public void addBook(Book book) throws LibraryException {
         databaseManager.addBook(book);
         books.add(book);
-        System.out.println("Book added successfully: " + book.getTitle());
+        System.out.println("Kitap başarıyla eklendi: " + book.getTitle());
     }
 
     /**
@@ -57,15 +57,15 @@ public class LibraryManager implements Searchable {
      */
     public void listAllBooks() {
         if (books.isEmpty()) {
-            System.out.println("No books available in the library.");
+            System.out.println("Kütüphanede kitap bulunmuyor.");
             return;
         }
         
-        System.out.println("\n========== BOOK LIST ==========");
+        System.out.println("\n========== KİTAP LİSTESİ ==========");
         for (Book book : books) {
             System.out.println(book);
         }
-        System.out.println("Total books: " + books.size());
+        System.out.println("Toplam kitap: " + books.size());
     }
 
     /**
@@ -80,7 +80,7 @@ public class LibraryManager implements Searchable {
                 break;
             }
         }
-        System.out.println("Book updated successfully.");
+        System.out.println("Kitap başarıyla güncellendi.");
     }
 
     /**
@@ -89,7 +89,7 @@ public class LibraryManager implements Searchable {
     public void deleteBook(int bookId) throws LibraryException {
         databaseManager.deleteBook(bookId);
         books.removeIf(book -> book.getId() == bookId);
-        System.out.println("Book deleted successfully.");
+        System.out.println("Kitap başarıyla silindi.");
     }
 
     /**
@@ -137,15 +137,15 @@ public class LibraryManager implements Searchable {
      */
     public void displaySearchResults(List<Book> results, String searchType) {
         if (results.isEmpty()) {
-            System.out.println("No books found matching your search.");
+            System.out.println("Aramanıza uygun kitap bulunamadı.");
             return;
         }
         
-        System.out.println("\n========== SEARCH RESULTS (" + searchType + ") ==========");
+        System.out.println("\n========== ARAMA SONUÇLARI (" + searchType + ") ==========");
         for (Book book : results) {
             System.out.println(book);
         }
-        System.out.println("Total results: " + results.size());
+        System.out.println("Toplam sonuç: " + results.size());
     }
 
     // ==================== STUDENT OPERATIONS ====================
@@ -156,7 +156,7 @@ public class LibraryManager implements Searchable {
     public void addStudent(Student student) throws LibraryException {
         databaseManager.addStudent(student);
         students.add(student);
-        System.out.println("Student added successfully: " + student.getName());
+        System.out.println("Öğrenci başarıyla eklendi: " + student.getName());
     }
 
     /**
@@ -164,15 +164,15 @@ public class LibraryManager implements Searchable {
      */
     public void listAllStudents() {
         if (students.isEmpty()) {
-            System.out.println("No students registered.");
+            System.out.println("Kayıtlı öğrenci bulunmuyor.");
             return;
         }
         
-        System.out.println("\n========== STUDENT LIST ==========");
+        System.out.println("\n========== ÖĞRENCİ LİSTESİ ==========");
         for (Student student : students) {
             System.out.println(student);
         }
-        System.out.println("Total students: " + students.size());
+        System.out.println("Toplam öğrenci: " + students.size());
     }
 
     /**
@@ -187,7 +187,7 @@ public class LibraryManager implements Searchable {
                 break;
             }
         }
-        System.out.println("Student updated successfully.");
+        System.out.println("Öğrenci başarıyla güncellendi.");
     }
 
     /**
@@ -196,7 +196,7 @@ public class LibraryManager implements Searchable {
     public void deleteStudent(int studentId) throws LibraryException {
         databaseManager.deleteStudent(studentId);
         students.removeIf(student -> student.getId() == studentId);
-        System.out.println("Student deleted successfully.");
+        System.out.println("Öğrenci başarıyla silindi.");
     }
 
     /**
@@ -222,7 +222,7 @@ public class LibraryManager implements Searchable {
 
         // Check if book is available
         if (!book.isAvailable()) {
-            throw new LibraryException("Book is not available: " + book.getTitle());
+            throw new LibraryException("Kitap müsait değil: " + book.getTitle());
         }
 
         // Create loan
@@ -237,10 +237,10 @@ public class LibraryManager implements Searchable {
         book.setAvailable(false);
         databaseManager.updateBook(book);
 
-        System.out.println("Book borrowed successfully!");
-        System.out.println("Student: " + student.getName());
-        System.out.println("Book: " + book.getTitle());
-        System.out.println("Return by: " + returnDate);
+        System.out.println("Kitap başarıyla ödünç alındı!");
+        System.out.println("Öğrenci: " + student.getName());
+        System.out.println("Kitap: " + book.getTitle());
+        System.out.println("İade tarihi: " + returnDate);
     }
 
     /**
@@ -257,7 +257,7 @@ public class LibraryManager implements Searchable {
         }
 
         if (loan == null) {
-            throw new LibraryException("Active loan not found with ID: " + loanId);
+            throw new LibraryException("Aktif ödünç bulunamadı, ID: " + loanId);
         }
 
         // Set actual return date and calculate penalty
@@ -274,11 +274,11 @@ public class LibraryManager implements Searchable {
             databaseManager.updateBook(book);
         }
 
-        System.out.println("Book returned successfully!");
+        System.out.println("Kitap başarıyla iade edildi!");
         if (loan.getPenaltyAmount() > 0) {
-            System.out.println("Penalty amount: " + loan.getPenaltyAmount() + " TL");
+            System.out.println("Ceza miktarı: " + loan.getPenaltyAmount() + " TL");
         } else {
-            System.out.println("No penalty - returned on time.");
+            System.out.println("Ceza yok - zamanında iade edildi.");
         }
     }
 
@@ -289,29 +289,29 @@ public class LibraryManager implements Searchable {
         List<Loan> activeLoans = databaseManager.getActiveLoans();
         
         if (activeLoans.isEmpty()) {
-            System.out.println("No active loans.");
+            System.out.println("Aktif ödünç yok.");
             return;
         }
 
-        System.out.println("\n========== ACTIVE LOANS ==========");
+        System.out.println("\n========== AKTİF ÖDÜNÇLER ==========");
         for (Loan loan : activeLoans) {
             Student student = getStudentById(loan.getStudentId());
             Book book = getBookById(loan.getBookId());
             
-            System.out.println("Loan ID: " + loan.getId());
-            System.out.println("  Student: " + (student != null ? student.getName() : "Unknown"));
-            System.out.println("  Book: " + (book != null ? book.getTitle() : "Unknown"));
-            System.out.println("  Loan Date: " + loan.getLoanDate());
-            System.out.println("  Expected Return: " + loan.getReturnDate());
+            System.out.println("Ödünç ID: " + loan.getId());
+            System.out.println("  Öğrenci: " + (student != null ? student.getName() : "Bilinmiyor"));
+            System.out.println("  Kitap: " + (book != null ? book.getTitle() : "Bilinmiyor"));
+            System.out.println("  Ödünç Tarihi: " + loan.getLoanDate());
+            System.out.println("  Beklenen İade: " + loan.getReturnDate());
             
             // Calculate potential penalty if returned today
             double potentialPenalty = loan.calculatePenalty(LocalDate.now());
             if (potentialPenalty > 0) {
-                System.out.println("  WARNING: Book is overdue! Potential penalty: " + potentialPenalty + " TL");
+                System.out.println("  UYARI: Kitap gecikmiş! Olası ceza: " + potentialPenalty + " TL");
             }
             System.out.println("---");
         }
-        System.out.println("Total active loans: " + activeLoans.size());
+        System.out.println("Toplam aktif ödünç: " + activeLoans.size());
     }
 
     /**
@@ -326,25 +326,25 @@ public class LibraryManager implements Searchable {
                 .collect(Collectors.toList());
 
         if (overdueLoans.isEmpty()) {
-            System.out.println("No overdue loans.");
+            System.out.println("Geciken ödünç yok.");
             return;
         }
 
-        System.out.println("\n========== OVERDUE LOANS ==========");
+        System.out.println("\n========== GECİKEN ÖDÜNÇLER ==========");
         for (Loan loan : overdueLoans) {
             Student student = getStudentById(loan.getStudentId());
             Book book = getBookById(loan.getBookId());
             double penalty = loan.calculatePenalty(today);
             
-            System.out.println("Loan ID: " + loan.getId());
-            System.out.println("  Student: " + (student != null ? student.getName() + " (" + student.getStudentNo() + ")" : "Unknown"));
-            System.out.println("  Book: " + (book != null ? book.getTitle() : "Unknown"));
-            System.out.println("  Expected Return: " + loan.getReturnDate());
-            System.out.println("  Days Overdue: " + java.time.temporal.ChronoUnit.DAYS.between(loan.getReturnDate(), today));
-            System.out.println("  Current Penalty: " + penalty + " TL");
+            System.out.println("Ödünç ID: " + loan.getId());
+            System.out.println("  Öğrenci: " + (student != null ? student.getName() + " (" + student.getStudentNo() + ")" : "Bilinmiyor"));
+            System.out.println("  Kitap: " + (book != null ? book.getTitle() : "Bilinmiyor"));
+            System.out.println("  Beklenen İade: " + loan.getReturnDate());
+            System.out.println("  Gecikme Günü: " + java.time.temporal.ChronoUnit.DAYS.between(loan.getReturnDate(), today));
+            System.out.println("  Güncel Ceza: " + penalty + " TL");
             System.out.println("---");
         }
-        System.out.println("Total overdue loans: " + overdueLoans.size());
+        System.out.println("Toplam geciken ödünç: " + overdueLoans.size());
     }
 
     /**
@@ -375,7 +375,7 @@ public class LibraryManager implements Searchable {
      */
     private void validateNotNull(Object entity, String entityType, int id) throws LibraryException {
         if (entity == null) {
-            throw new LibraryException(entityType + " not found with ID: " + id);
+            throw new LibraryException(entityType + " bulunamadı, ID: " + id);
         }
     }
 }

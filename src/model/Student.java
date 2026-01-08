@@ -27,7 +27,7 @@ public class Student extends Person {
     // Implementing abstract method from Person
     @Override
     public String getRole() {
-        return "Student";
+        return "Öğrenci";
     }
 
     // Getter and Setter
@@ -42,7 +42,7 @@ public class Student extends Person {
     // Method overriding - polymorphism
     @Override
     public String toString() {
-        return "Student [" + super.toString() + ", Student No: " + studentNo + ", Role: " + getRole() + "]";
+        return "Öğrenci [" + super.toString() + ", Öğrenci No: " + studentNo + ", Rol: " + getRole() + "]";
     }
 
     // Method overriding

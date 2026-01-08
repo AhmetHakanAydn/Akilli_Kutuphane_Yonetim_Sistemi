@@ -25,10 +25,10 @@ public class DatabaseManager {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(DB_URL);
-            System.out.println("Database connection established successfully.");
+            System.out.println("Veritabanı bağlantısı başarıyla kuruldu.");
             initializeDatabase();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new LibraryException("Failed to connect to database", e);
+            throw new LibraryException("Veritabanına bağlanılamadı", e);
         }
     }
 
@@ -70,9 +70,9 @@ public class DatabaseManager {
             stmt.execute(createLoansTable);
 
             stmt.close();
-            System.out.println("Database tables initialized successfully.");
+            System.out.println("Veritabanı tabloları başarıyla başlatıldı.");
         } catch (SQLException e) {
-            throw new LibraryException("Failed to initialize database", e);
+            throw new LibraryException("Veritabanı başlatılamadı", e);
         }
     }
 
@@ -97,7 +97,7 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to add book", e);
+            throw new LibraryException("Kitap eklenemedi", e);
         }
     }
 
@@ -122,7 +122,7 @@ public class DatabaseManager {
                 books.add(book);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve books", e);
+            throw new LibraryException("Kitaplar alınamadı", e);
         }
         return books;
     }
@@ -147,7 +147,7 @@ public class DatabaseManager {
                 );
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve book", e);
+            throw new LibraryException("Kitap alınamadı", e);
         }
         return null;
     }
@@ -167,10 +167,10 @@ public class DatabaseManager {
             
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Book not found with ID: " + book.getId());
+                throw new LibraryException("Kitap bulunamadı, ID: " + book.getId());
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to update book", e);
+            throw new LibraryException("Kitap güncellenemedi", e);
         }
     }
 
@@ -184,10 +184,10 @@ public class DatabaseManager {
             checkStmt.setInt(1, id);
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
-                throw new LibraryException("Cannot delete book - it is currently on loan");
+                throw new LibraryException("Kitap silinemez - şu anda ödünç verilmiş");
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to check book loan status", e);
+            throw new LibraryException("Kitap ödünç durumu kontrol edilemedi", e);
         }
 
         String sql = "DELETE FROM books WHERE id = ?";
@@ -195,10 +195,10 @@ public class DatabaseManager {
             pstmt.setInt(1, id);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Book not found with ID: " + id);
+                throw new LibraryException("Kitap bulunamadı, ID: " + id);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to delete book", e);
+            throw new LibraryException("Kitap silinemedi", e);
         }
     }
 
@@ -224,9 +224,9 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             if (e.getMessage().contains("UNIQUE constraint failed")) {
-                throw new LibraryException("Student number already exists: " + student.getStudentNo());
+                throw new LibraryException("Öğrenci numarası zaten mevcut: " + student.getStudentNo());
             }
-            throw new LibraryException("Failed to add student", e);
+            throw new LibraryException("Öğrenci eklenemedi", e);
         }
     }
 
@@ -250,7 +250,7 @@ public class DatabaseManager {
                 students.add(student);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve students", e);
+            throw new LibraryException("Öğrenciler alınamadı", e);
         }
         return students;
     }
@@ -274,7 +274,7 @@ public class DatabaseManager {
                 );
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve student", e);
+            throw new LibraryException("Öğrenci alınamadı", e);
         }
         return null;
     }
@@ -293,13 +293,13 @@ public class DatabaseManager {
             
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Student not found with ID: " + student.getId());
+                throw new LibraryException("Öğrenci bulunamadı, ID: " + student.getId());
             }
         } catch (SQLException e) {
             if (e.getMessage().contains("UNIQUE constraint failed")) {
-                throw new LibraryException("Student number already exists: " + student.getStudentNo());
+                throw new LibraryException("Öğrenci numarası zaten mevcut: " + student.getStudentNo());
             }
-            throw new LibraryException("Failed to update student", e);
+            throw new LibraryException("Öğrenci güncellenemedi", e);
         }
     }
 
@@ -313,10 +313,10 @@ public class DatabaseManager {
             checkStmt.setInt(1, id);
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
-                throw new LibraryException("Cannot delete student - they have active loans");
+                throw new LibraryException("Öğrenci silinemez - aktif ödünç kaydı var");
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to check student loan status", e);
+            throw new LibraryException("Öğrenci ödünç durumu kontrol edilemedi", e);
         }
 
         String sql = "DELETE FROM students WHERE id = ?";
@@ -324,10 +324,10 @@ public class DatabaseManager {
             pstmt.setInt(1, id);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Student not found with ID: " + id);
+                throw new LibraryException("Öğrenci bulunamadı, ID: " + id);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to delete student", e);
+            throw new LibraryException("Öğrenci silinemedi", e);
         }
     }
 
@@ -356,7 +356,7 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to add loan", e);
+            throw new LibraryException("Ödünç kaydı eklenemedi", e);
         }
     }
 
@@ -383,7 +383,7 @@ public class DatabaseManager {
                 loans.add(loan);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve loans", e);
+            throw new LibraryException("Ödünç kayıtları alınamadı", e);
         }
         return loans;
     }
@@ -411,7 +411,7 @@ public class DatabaseManager {
                 loans.add(loan);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to retrieve active loans", e);
+            throw new LibraryException("Aktif ödünç kayıtları alınamadı", e);
         }
         return loans;
     }
@@ -434,10 +434,10 @@ public class DatabaseManager {
             
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Loan not found with ID: " + loan.getId());
+                throw new LibraryException("Ödünç kaydı bulunamadı, ID: " + loan.getId());
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to update loan", e);
+            throw new LibraryException("Ödünç kaydı güncellenemedi", e);
         }
     }
 
@@ -451,10 +451,10 @@ public class DatabaseManager {
             pstmt.setInt(1, id);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new LibraryException("Loan not found with ID: " + id);
+                throw new LibraryException("Ödünç kaydı bulunamadı, ID: " + id);
             }
         } catch (SQLException e) {
-            throw new LibraryException("Failed to delete loan", e);
+            throw new LibraryException("Ödünç kaydı silinemedi", e);
         }
     }
 
@@ -465,10 +465,10 @@ public class DatabaseManager {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Database connection closed.");
+                System.out.println("Veritabanı bağlantısı kapatıldı.");
             }
         } catch (SQLException e) {
-            System.err.println("Error closing database connection: " + e.getMessage());
+            System.err.println("Veritabanı bağlantısı kapatılırken hata: " + e.getMessage());
         }
     }
 
