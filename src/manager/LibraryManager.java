@@ -214,15 +214,11 @@ public class LibraryManager implements Searchable {
     public void borrowBook(int studentId, int bookId, int loanDays) throws LibraryException {
         // Check if student exists
         Student student = getStudentById(studentId);
-        if (student == null) {
-            throw new LibraryException("Student not found with ID: " + studentId);
-        }
+        validateNotNull(student, "Student", studentId);
 
         // Check if book exists
         Book book = getBookById(bookId);
-        if (book == null) {
-            throw new LibraryException("Book not found with ID: " + bookId);
-        }
+        validateNotNull(book, "Book", bookId);
 
         // Check if book is available
         if (!book.isAvailable()) {
@@ -370,5 +366,16 @@ public class LibraryManager implements Searchable {
      */
     public List<Student> getAllStudents() {
         return new ArrayList<>(students);
+    }
+
+    // ==================== HELPER METHODS ====================
+
+    /**
+     * Validate that an entity is not null and throw exception if it is
+     */
+    private void validateNotNull(Object entity, String entityType, int id) throws LibraryException {
+        if (entity == null) {
+            throw new LibraryException(entityType + " not found with ID: " + id);
+        }
     }
 }
